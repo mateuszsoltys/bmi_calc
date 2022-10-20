@@ -1,4 +1,4 @@
-package com.example.bmi_calc
+package com.mateuszsoltys.bmi_calc
 
 import io.flutter.embedding.android.FlutterActivity
 
