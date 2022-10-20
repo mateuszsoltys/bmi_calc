@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'data/theme/theme_data.dart';
 import 'features/home_page/home_page.dart';
 
 void main() {
@@ -13,9 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BMI CALC',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: AppTheme(),
       home: const HomePage(),
     );
   }
