@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-ThemeData AppTheme() {
+ThemeData appTheme() {
   return ThemeData(scaffoldBackgroundColor: Colors.transparent);
 }
