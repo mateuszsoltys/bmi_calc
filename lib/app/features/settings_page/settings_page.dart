@@ -5,7 +5,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool lang = false;
+    bool lang = true;
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -29,23 +29,29 @@ class SettingsPage extends StatelessWidget {
                 const SizedBox(
                   height: 100,
                 ),
+                const Text('Zmień język'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CircleAvatar(
+                      radius: 20,
                       backgroundImage: AssetImage('assets/pics/flag_pl.png'),
                     ),
                     Switch(
-                      value: lang,
-                      onChanged: (value) {
-                        lang = !value;
-                      },
-                    ),
+                        inactiveThumbColor: Colors.red,
+                        activeColor: Colors.red,
+                        inactiveTrackColor: Colors.amber,
+                        activeTrackColor: Colors.amber,
+                        value: lang,
+                        onChanged: (value) {}),
                     const CircleAvatar(
+                      radius: 20,
                       backgroundImage: AssetImage('assets/pics/flag_uk.png'),
                     ),
                   ],
                 ),
+                const Text('Jednostki:'),
+                //todo: DropdownButton
               ],
             ),
           ),

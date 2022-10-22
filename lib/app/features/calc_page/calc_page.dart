@@ -1,6 +1,6 @@
-import 'package:bmi_calc/features/settings_page/settings_page.dart';
-import 'package:bmi_calc/models/animated_widgets/anim_widget_settings.dart';
+import 'package:bmi_calc/app/features/settings_page/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:bmi_calc/app/models/animated_widgets/anim_widget_settings.dart';
 
 class CalcPage extends StatelessWidget {
   const CalcPage({super.key});

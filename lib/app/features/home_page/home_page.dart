@@ -1,7 +1,7 @@
-import 'package:bmi_calc/features/calc_page/calc_page.dart';
-import 'package:bmi_calc/features/history_page/history_page.dart';
-import 'package:flutter/material.dart';
+import 'package:bmi_calc/app/features/calc_page/calc_page.dart';
+import 'package:bmi_calc/app/features/history_page/history_page.dart';
 import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
+import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
