@@ -1,17 +1,25 @@
-import 'package:bmi_calc/app/cubit/core_cubit.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:bmi_calc/app/cubit/core_cubit.dart';
 
 import 'data/theme/theme_data.dart';
 import 'features/home_page/home_page.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.preferences,
+  }) : super(key: key);
+
+  final SharedPreferences preferences;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CoreCubit()..start(),
+      create: (context) => CoreCubit(preferences),
       child: BlocBuilder<CoreCubit, CoreState>(
         builder: (context, state) {
           return MaterialApp(

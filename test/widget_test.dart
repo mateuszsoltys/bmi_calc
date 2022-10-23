@@ -8,11 +8,13 @@
 import 'package:bmi_calc/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await tester.pumpWidget(MyApp(preferences: preferences));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

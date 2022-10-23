@@ -9,7 +9,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool lang = true;
     return BlocBuilder<CoreCubit, CoreState>(
       builder: (context, core) {
         return Container(
@@ -35,7 +34,67 @@ class SettingsPage extends StatelessWidget {
                     const SizedBox(
                       height: 100,
                     ),
-                    LanguageField(lang: lang),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.all(20),
+                      decoration: const BoxDecoration(
+                          color: Color.fromARGB(59, 0, 0, 0),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text('Wybierz język'),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 25,
+                                backgroundColor: core.language == Lang.pl
+                                    ? Colors.blue
+                                    : Colors.transparent,
+                                child: InkWell(
+                                  onTap: () {
+                                    context
+                                        .read<CoreCubit>()
+                                        .changeAndSaveLanguage(Lang.pl);
+                                  },
+                                  child: const CircleAvatar(
+                                    radius: 20,
+                                    backgroundImage:
+                                        AssetImage('assets/pics/flag_pl.png'),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 50),
+                              CircleAvatar(
+                                radius: 25,
+                                backgroundColor: core.language == Lang.gb
+                                    ? Colors.blue
+                                    : Colors.transparent,
+                                child: InkWell(
+                                  onTap: () {
+                                    context
+                                        .read<CoreCubit>()
+                                        .changeAndSaveLanguage(Lang.gb);
+                                  },
+                                  child: const CircleAvatar(
+                                    radius: 20,
+                                    backgroundImage:
+                                        AssetImage('assets/pics/flag_uk.png'),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20)
+                        ],
+                      ),
+                    ),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.all(20),
@@ -67,57 +126,6 @@ class SettingsPage extends StatelessWidget {
               ),
             ));
       },
-    );
-  }
-}
-
-class LanguageField extends StatelessWidget {
-  const LanguageField({
-    Key? key,
-    required this.lang,
-  }) : super(key: key);
-
-  final bool lang;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-          color: Color.fromARGB(59, 0, 0, 0),
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          const Text('Wybierz język'),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage('assets/pics/flag_pl.png'),
-              ),
-              Switch(
-                  inactiveThumbColor: Colors.red,
-                  activeColor: Colors.red,
-                  inactiveTrackColor: Colors.amber,
-                  activeTrackColor: Colors.amber,
-                  value: lang,
-                  onChanged: (value) {}),
-              const CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage('assets/pics/flag_uk.png'),
-              ),
-            ],
-          )
-        ],
-      ),
     );
   }
 }
