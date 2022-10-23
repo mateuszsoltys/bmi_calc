@@ -3,10 +3,10 @@ enum Lang {
   gb,
 }
 
-enum Unit {
+enum Units {
   iso('Metric'),
   imp('Imperial');
 
-  const Unit(this.label);
+  const Units(this.label);
   final String label;
 }
