@@ -7,23 +7,32 @@ class CoreState {
   final Units unit;
   final Gender gender;
   final int? age;
+  final int? height;
+  final int? weight;
 
   CoreState(
       {required this.language,
       required this.unit,
       required this.gender,
-      required this.age});
+      required this.age,
+      required this.height,
+      required this.weight});
 
   CoreState copyWith({
     Lang? language,
     Units? unit,
     Gender? gender,
     int? age,
+    int? height,
+    int? weight,
   }) {
     return CoreState(
-        language: language ?? this.language,
-        unit: unit ?? this.unit,
-        gender: gender ?? this.gender,
-        age: age ?? this.age);
+      language: language ?? this.language,
+      unit: unit ?? this.unit,
+      gender: gender ?? this.gender,
+      age: age ?? this.age,
+      height: height ?? this.height,
+      weight: weight ?? this.weight,
+    );
   }
 }

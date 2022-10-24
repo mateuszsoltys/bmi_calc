@@ -9,12 +9,15 @@ class CoreCubit extends Cubit<CoreState> {
   final SharedPreferences _preferences;
   CoreCubit(this._preferences)
       : super(CoreState(
-            language:
-                Lang.values.byName(_preferences.getString('language') ?? 'pl'),
-            unit: Units.values.byName(_preferences.getString('unit') ?? 'iso'),
-            gender:
-                Gender.values.byName(_preferences.getString('gender') ?? 'man'),
-            age: _preferences.getInt('age') ?? null));
+          language:
+              Lang.values.byName(_preferences.getString('language') ?? 'pl'),
+          unit: Units.values.byName(_preferences.getString('unit') ?? 'iso'),
+          gender:
+              Gender.values.byName(_preferences.getString('gender') ?? 'man'),
+          age: _preferences.getInt('age') ?? null,
+          height: _preferences.getInt('height') ?? 170,
+          weight: _preferences.getInt('weight') ?? 80,
+        ));
 
   Future<void> changeUnit() async {}
 
@@ -32,5 +35,15 @@ class CoreCubit extends Cubit<CoreState> {
     final newVal = int.tryParse(val);
     _preferences.setInt('age', newVal!);
     emit(state.copyWith(age: newVal));
+  }
+
+  Future<void> saveHeight(int val) async {
+    _preferences.setInt('height', val);
+    emit(state.copyWith(height: val));
+  }
+
+  Future<void> saveWeight(int val) async {
+    _preferences.setInt('weight', val);
+    emit(state.copyWith(weight: val));
   }
 }

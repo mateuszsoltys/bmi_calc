@@ -5,7 +5,7 @@ enum Lang {
 
 enum Units {
   iso('kg / cm'),
-  imp('lbs / \"');
+  imp('lbs / in');
 
   const Units(this.label);
   final String label;

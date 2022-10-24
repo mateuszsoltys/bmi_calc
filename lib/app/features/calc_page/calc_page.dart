@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/custom_TextInputFormatter.dart';
+import '../../models/widgets/horizontal_picker_model.dart';
+
 class CalcPage extends StatelessWidget {
   CalcPage({super.key});
-
-  final ageValue = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,6 @@ class CalcPage extends StatelessWidget {
                           ),
                         ),
                         TextField(
-                            // controller: ageValue,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(3),
@@ -91,8 +91,25 @@ class CalcPage extends StatelessWidget {
                             onChanged: (String age) {
                               context.read<CoreCubit>().saveAge(age);
                             }),
-
-                        Text('Wpisany wiek to: ${core.age}')
+                        HorizontalPicker(
+                            fieldTitle: 'Twoja wysokość',
+                            textUnit: 'cm',
+                            unit: core.unit,
+                            value: core.height,
+                            minVal: 100,
+                            maxVal: 200,
+                            onChanged: context.read<CoreCubit>().saveHeight),
+                        const SizedBox(height: 10),
+                        HorizontalPicker(
+                            fieldTitle: 'Twoja waga',
+                            textUnit: 'kg',
+                            unit: core.age,
+                            value: core.weight,
+                            minVal: 30,
+                            maxVal: 200,
+                            onChanged: context.read<CoreCubit>().saveWeight),
+                        const SizedBox(height: 10),
+                        //todo: ResultWidget
                       ],
                     ),
                   ),
@@ -101,26 +118,5 @@ class CalcPage extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-class NumericalRangeFormatter extends TextInputFormatter {
-  final int min;
-  final int max;
-
-  NumericalRangeFormatter({required this.min, required this.max});
-
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    if (newValue.text == '') {
-      return newValue;
-    } else if (int.parse(newValue.text) < min) {
-      return TextEditingValue().copyWith(text: min.toStringAsFixed(0));
-    } else {
-      return int.parse(newValue.text) > max ? oldValue : newValue;
-    }
   }
 }
