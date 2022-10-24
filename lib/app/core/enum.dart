@@ -10,3 +10,8 @@ enum Units {
   const Units(this.label);
   final String label;
 }
+
+enum Gender {
+  man,
+  woman,
+}

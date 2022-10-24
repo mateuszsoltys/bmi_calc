@@ -11,12 +11,10 @@ class CoreCubit extends Cubit<CoreState> {
       : super(CoreState(
             language:
                 Lang.values.byName(_preferences.getString('language') ?? 'pl'),
-            unit:
-                Units.values.byName(_preferences.getString('unit') ?? 'iso')));
-
-  // Future<void> start() async {
-  //   emit(CoreState(language: Lang.pl, unit: Units.iso));
-  // }
+            unit: Units.values.byName(_preferences.getString('unit') ?? 'iso'),
+            gender:
+                Gender.values.byName(_preferences.getString('gender') ?? 'man'),
+            age: _preferences.getInt('age') ?? null));
 
   Future<void> changeUnit() async {}
 
@@ -28,5 +26,11 @@ class CoreCubit extends Cubit<CoreState> {
       emit(state.copyWith(language: Lang.gb));
       _preferences.setString('language', 'gb');
     }
+  }
+
+  Future<void> saveAge(String val) async {
+    final newVal = int.tryParse(val);
+    _preferences.setInt('age', newVal!);
+    emit(state.copyWith(age: newVal));
   }
 }
