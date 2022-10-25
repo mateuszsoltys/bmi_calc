@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
                 previewWidget: _previewWidget(),
                 backgroundWidget: CalcPage(),
                 expandedWidget: HistoryPage(),
+                maxExtent: MediaQuery.of(context).size.height * 0.8,
                 onDragging: (pos) {})));
   }
 }

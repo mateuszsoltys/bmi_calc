@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   shared_preferences: ^2.0.15
   numberpicker: ^2.1.1
+  syncfusion_flutter_gauges: ^20.3.50
   
 
 dev_dependencies:

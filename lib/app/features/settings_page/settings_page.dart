@@ -116,7 +116,7 @@ class SettingsPage extends StatelessWidget {
                                     value: unit, child: Text(unit.label));
                               }).toList(),
                               onChanged: (Units? unit) {
-                                context.read<CoreCubit>().changeUnit();
+                                context.read<CoreCubit>().changeUnit(unit);
                               })
                         ],
                       ),

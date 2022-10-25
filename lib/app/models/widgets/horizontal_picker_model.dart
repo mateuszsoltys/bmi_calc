@@ -30,6 +30,9 @@ class HorizontalPicker extends StatelessWidget {
           const SizedBox(height: 10),
           Text(fieldTitle),
           NumberPicker(
+              selectedTextStyle: const TextStyle(
+                  color: Color.fromARGB(255, 28, 0, 94), fontSize: 30),
+              textStyle: const TextStyle(color: Colors.amber),
               axis: Axis.horizontal,
               minValue: minVal,
               maxValue: maxVal,
