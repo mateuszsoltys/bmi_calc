@@ -14,19 +14,20 @@ class CoreState {
   final int? maxValHeight;
   final int? minValWeight;
   final int? maxValWeight;
-
+  final WeightGroup? weightGroup;
   CoreState({
     required this.language,
     required this.unit,
     required this.gender,
-    required this.age,
+    this.age,
     required this.height,
     required this.weight,
     required this.bmi,
-    required this.minValHeight,
-    required this.maxValHeight,
-    required this.minValWeight,
-    required this.maxValWeight,
+    this.minValHeight,
+    this.maxValHeight,
+    this.minValWeight,
+    this.maxValWeight,
+    required this.weightGroup,
   });
 
   CoreState copyWith({
@@ -41,6 +42,7 @@ class CoreState {
     int? maxValHeight,
     int? minValWeight,
     int? maxValWeight,
+    WeightGroup? weightGroup,
   }) {
     return CoreState(
       language: language ?? this.language,
@@ -54,6 +56,7 @@ class CoreState {
       maxValHeight: maxValHeight ?? this.maxValHeight,
       minValWeight: minValWeight ?? this.minValWeight,
       maxValWeight: maxValWeight ?? this.maxValWeight,
+      weightGroup: weightGroup ?? this.weightGroup,
     );
   }
 }

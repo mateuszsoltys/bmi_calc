@@ -35,7 +35,14 @@ class CalcPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('calc page'),
+                        const SizedBox(
+                          width: 60,
+                        ),
+                        const Text(
+                          'BMI CALC',
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
                         InkWell(
                             child: const AnimatedSettings(),
                             onTap: () {
@@ -52,23 +59,24 @@ class CalcPage extends StatelessWidget {
                         const SizedBox(
                           width: 20,
                         ),
-                        InkWell(
-                          child: const Icon(Icons.info_outline_rounded),
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                      title: Text('BMI'),
-                                      content: Text(LocaleKeys.txtBMI.tr()),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
-                                            child: Text('OK'))
-                                      ],
-                                    ));
-                          },
-                        ),
+                        IconButton(
+                            padding: const EdgeInsets.all(4),
+                            constraints: const BoxConstraints(),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        title: const Text('BMI'),
+                                        content: Text(LocaleKeys.txtBMI.tr()),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context).pop(),
+                                              child: const Text('OK'))
+                                        ],
+                                      ));
+                            },
+                            icon: const Icon(Icons.info_outline_rounded)),
                       ],
                     ),
                     const SizedBox(
@@ -76,33 +84,62 @@ class CalcPage extends StatelessWidget {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(left: 20, right: 20),
+                      margin: const EdgeInsets.only(left: 20, right: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            //?: gender filed
                             decoration: const BoxDecoration(
                                 color: Color.fromARGB(59, 0, 0, 0),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20))),
                             child: Row(
                               children: [
-                                Icon(Icons.man_rounded),
-                                SizedBox(
+                                Material(
+                                  type: MaterialType.circle,
+                                  color: core.gender == Gender.man
+                                      ? Colors.amber
+                                      : Colors.transparent,
+                                  child: IconButton(
+                                      padding: const EdgeInsets.all(4),
+                                      constraints: const BoxConstraints(),
+                                      onPressed: () {
+                                        context
+                                            .read<CoreCubit>()
+                                            .changeAndSaveGender(Gender.man);
+                                      },
+                                      icon: const Icon(Icons.man_rounded)),
+                                ),
+                                const SizedBox(
                                   width: 30,
                                 ),
-                                Icon(Icons.woman_rounded),
+                                Material(
+                                  type: MaterialType.circle,
+                                  color: core.gender == Gender.woman
+                                      ? Colors.amber
+                                      : Colors.transparent,
+                                  child: IconButton(
+                                      padding: const EdgeInsets.all(4),
+                                      constraints: const BoxConstraints(),
+                                      onPressed: () {
+                                        context
+                                            .read<CoreCubit>()
+                                            .changeAndSaveGender(Gender.woman);
+                                      },
+                                      icon: const Icon(Icons.woman_rounded)),
+                                ),
                               ],
                             ),
                           ),
                           SizedBox(
                             width: 80,
-                            child: TextField(
-                                textAlignVertical: TextAlignVertical.center,
+                            child: TextFormField(
+                                textAlign: TextAlign.center,
+                                initialValue: core.age?.toString(),
                                 decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(10.0),
-                                    enabledBorder: OutlineInputBorder(
+                                    hintText: 'infoAge'.tr(),
+                                    contentPadding: const EdgeInsets.all(10.0),
+                                    enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                             width: 3,
                                             color: Colors.greenAccent))),
@@ -120,7 +157,7 @@ class CalcPage extends StatelessWidget {
                       ),
                     ),
                     HorizontalPicker(
-                        fieldTitle: LocaleKeys.infoHeight.tr(),
+                        fieldTitle: 'infoHeight'.tr(),
                         textUnit: core.unit == Units.iso ? 'cm' : 'in',
                         unit: core.unit,
                         value: core.height,
@@ -138,40 +175,49 @@ class CalcPage extends StatelessWidget {
                         onChanged: context.read<CoreCubit>().saveWeight),
                     const SizedBox(height: 10),
                     //todo: ResultWidget
-                    SfRadialGauge(
-                      axes: <RadialAxis>[
-                        RadialAxis(
-                          minimum: 0,
-                          maximum: core.gender == Gender.man ? 45 : 44,
-                          interval: 2,
-                          ranges: <GaugeRange>[
-                            GaugeRange(
-                              startValue: 0,
-                              endValue: 25,
-                              color: Colors.green,
-                            )
-                          ],
-                          pointers: <GaugePointer>[
-                            NeedlePointer(
-                              value: core.bmi,
-                              enableAnimation: true,
-                            )
-                          ],
-                          annotations: [
-                            GaugeAnnotation(
-                              widget: Text(
-                                'BMI: ${core.bmi.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold),
+                    if (core.bmi == 0.0) ...[
+                      Text('infoBmi0'.tr())
+                    ] else ...[
+                      SfRadialGauge(
+                        axes: <RadialAxis>[
+                          RadialAxis(
+                            minimum: 0,
+                            maximum: core.gender == Gender.man ? 45 : 44,
+                            interval: 2,
+                            ranges: <GaugeRange>[
+                              GaugeRange(
+                                startValue: 0,
+                                endValue: 25,
+                                color: Colors.green,
+                              )
+                            ],
+                            pointers: <GaugePointer>[
+                              NeedlePointer(
+                                value: core.bmi,
+                                enableAnimation: true,
+                              )
+                            ],
+                            annotations: [
+                              GaugeAnnotation(
+                                widget: Text(core.weightGroup?.name.tr() ?? ''),
+                                positionFactor: 0.6,
+                                angle: 90,
                               ),
-                              positionFactor: 0.5,
-                              angle: 90,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                              GaugeAnnotation(
+                                widget: Text(
+                                  'BMI: ${core.bmi.toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                positionFactor: 0.5,
+                                angle: 90,
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
                   ],
                 ),
               ),

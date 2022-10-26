@@ -1,3 +1,5 @@
+enum WeightGroup { underweigt, normal, overweight, adiposity, severeadiposity }
+
 enum Lang {
   pl,
   gb,
@@ -43,13 +45,4 @@ extension ConverionFactors on Units {
 enum Gender {
   man,
   woman,
-}
-
-enum AgeGroup {
-  a,
-  b,
-  c,
-  d,
-  e,
-  f,
 }

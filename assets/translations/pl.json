@@ -2,8 +2,15 @@
   "infoHeight": "Twoja wysokość",
   "infoWeight": "Twoja waga",
   "history": "Historia",
-  "infoAge": "Podaj wiek",
+  "infoAge": "Wiek",
   "infoLanguage": "Język aplikacji",
   "infoUnit": "Jednostki",
-  "txtBMI": "BMI (ang. Body Mass Index), nazywany także indeksem masy ciała lub wskaźnikiem Queteleta,\nto parametr opracowany w 1832 roku przez belgijskiego statystyka, Adolfa Queteleta.\nPozwala on ocenić, czy masa naszego ciała jest prawidłowa. Parametry BMI delikatnie różnią się ze względu \nna płeć i wiek. Parametr BMI stosuje się dla osób dorosłych."
+  "txtBMI": "BMI (ang. Body Mass Index), nazywany także indeksem masy ciała lub wskaźnikiem Queteleta,\nto parametr opracowany w 1832 roku przez belgijskiego statystyka, Adolfa Queteleta.\nPozwala on ocenić, czy masa naszego ciała jest prawidłowa. Parametry BMI delikatnie różnią się ze względu \nna płeć i wiek. Parametr BMI stosuje się dla osób dorosłych.",
+  "underweigt": "Niedowaga",
+  "normal": "W normie",
+  "overweight": "Nadwaga",
+  "adiposity": "Otyłość",
+  "severeadiposity": "Ciężka otyłość",
+  "infoBmi0": "Witaj w BMI CALC! \nWprowadź swoje dane do kalkulatora",
+  "titleSettings": "Ustawienia"
 }

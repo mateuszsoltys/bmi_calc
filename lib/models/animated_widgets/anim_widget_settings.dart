@@ -9,6 +9,7 @@ class AnimatedSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: const EdgeInsets.only(right: 10),
         height: 50,
         width: 50,
         child: const RiveAnimation.asset(

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bmi_calc/app/core/enum.dart';
+import 'package:bmi_calc/app/repositories/results_range.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,20 +11,20 @@ class CoreCubit extends Cubit<CoreState> {
   final SharedPreferences _preferences;
   CoreCubit(this._preferences)
       : super(CoreState(
-          language:
-              Lang.values.byName(_preferences.getString('language') ?? 'pl'),
-          unit: Units.values.byName(_preferences.getString('unit') ?? 'iso'),
-          gender:
-              Gender.values.byName(_preferences.getString('gender') ?? 'man'),
-          age: _preferences.getInt('age') ?? null,
-          height: _preferences.getInt('height') ?? 170,
-          weight: _preferences.getInt('weight') ?? 80,
-          bmi: _preferences.getDouble('bmi') ?? 0.0,
-          minValHeight: _preferences.getInt('minValHeight') ?? 100,
-          maxValHeight: _preferences.getInt('maxValHeight') ?? 200,
-          minValWeight: _preferences.getInt('minValWeight') ?? 30,
-          maxValWeight: _preferences.getInt('maxValWeight') ?? 200,
-        ));
+            language:
+                Lang.values.byName(_preferences.getString('language') ?? 'pl'),
+            unit: Units.values.byName(_preferences.getString('unit') ?? 'iso'),
+            gender:
+                Gender.values.byName(_preferences.getString('gender') ?? 'man'),
+            age: _preferences.getInt('age'),
+            height: _preferences.getInt('height') ?? 170,
+            weight: _preferences.getInt('weight') ?? 80,
+            bmi: _preferences.getDouble('bmi') ?? 0.0,
+            minValHeight: _preferences.getInt('minValHeight') ?? 100,
+            maxValHeight: _preferences.getInt('maxValHeight') ?? 200,
+            minValWeight: _preferences.getInt('minValWeight') ?? 30,
+            maxValWeight: _preferences.getInt('maxValWeight') ?? 200,
+            weightGroup: null));
 
   Future<void> changeUnit(unit) async {
     if (unit == Units.iso) {
@@ -86,23 +87,25 @@ class CoreCubit extends Cubit<CoreState> {
     }
   }
 
-  Future<void> changeAndSaveLanguage(unit) async {
-    if (unit == Lang.pl) {
-      emit(state.copyWith(language: Lang.pl));
-      _preferences.setString('language', 'pl');
-    } else {
-      emit(state.copyWith(language: Lang.gb));
-      _preferences.setString('language', 'gb');
-    }
+  Future<void> changeAndSaveLanguage(Lang unit) async {
+    emit(state.copyWith(language: unit));
+    _preferences.setString('language', unit.name);
+  }
+
+  Future<void> changeAndSaveGender(Gender unit) async {
+    emit(state.copyWith(gender: unit));
+    _preferences.setString('gender', unit.name);
+    calculateResult();
+    bmiWeightGroup();
   }
 
   Future<void> saveAge(String val) async {
     final int? newVal = int.tryParse(val);
-    if (newVal == null) {
-      null;
-    } else {
+    if (newVal != null) {
       _preferences.setInt('age', newVal);
       emit(state.copyWith(age: newVal));
+      calculateResult();
+      bmiWeightGroup();
     }
   }
 
@@ -111,16 +114,18 @@ class CoreCubit extends Cubit<CoreState> {
     emit(state.copyWith(
       height: val,
     ));
-    calculateResut();
+    calculateResult();
+    bmiWeightGroup();
   }
 
   Future<void> saveWeight(int val) async {
     _preferences.setInt('weight', val);
     emit(state.copyWith(weight: val));
-    calculateResut();
+    calculateResult();
+    bmiWeightGroup();
   }
 
-  Future<void> calculateResut() async {
+  Future<void> calculateResult() async {
     // height [m]
     final height = state.height * state.unit.heightConv;
     // weight [kg]
@@ -131,5 +136,17 @@ class CoreCubit extends Cubit<CoreState> {
     bmi = weight / powHeight;
     _preferences.setDouble('bmi', bmi);
     emit(state.copyWith(bmi: bmi));
+  }
+
+  Future<void> bmiWeightGroup() async {
+    String? ageCategory = getAgeCategory(state.age);
+    if (ageCategory != null) {
+      WeightGroup group = getWeightGroup(state.bmi, ageCategory, state.gender);
+      emit(state.copyWith(weightGroup: group));
+    }
+  }
+
+  Future start() async {
+    bmiWeightGroup();
   }
 }

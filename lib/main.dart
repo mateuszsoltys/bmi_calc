@@ -12,6 +12,7 @@ void main() async {
   runApp(EasyLocalization(
     path: 'assets/translations',
     supportedLocales: const [Locale('en'), Locale('pl')],
+    startLocale: const Locale('pl'),
     fallbackLocale: const Locale('pl'),
     assetLoader: CodegenLoader(),
     child: MyApp(

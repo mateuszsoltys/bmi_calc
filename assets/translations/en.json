@@ -2,8 +2,15 @@
   "infoHeight": "Choose your height",
   "infoWeight": "Choose your weight",
   "history": "History",
-  "infoAge": "Your age",
+  "infoAge": "Age",
   "infoLanguage": "Choose app language",
   "infoUnit": "Units",
-  "txtBMI": "BMI, also known as the body mass index or the Quetelet index,\nis a parameter developed in 1832 by a Belgian statistician, Adolf Quetelet.\nIt allows you to assess whether our body weight is correct. BMI parameters slightly differ due to\non gender and age. The BMI parameter is used for adults."
+  "txtBMI": "BMI, also known as the body mass index or the Quetelet index,\nis a parameter developed in 1832 by a Belgian statistician, Adolf Quetelet.\nIt allows you to assess whether our body weight is correct. BMI parameters slightly differ due to\non gender and age. The BMI parameter is used for adults.",
+  "underweigt": "Underweight",
+  "normal": "Normal",
+  "overweight": "Overweight",
+  "adiposity": "Adiposity",
+  "severeadiposity": "Severe adiposity",
+  "infoBmi0": "Welcome in BMI CALC \nEnter your own data to calculate BMI",
+  "titleSettings": "Settings"
 }
