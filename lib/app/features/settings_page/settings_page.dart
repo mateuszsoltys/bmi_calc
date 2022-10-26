@@ -1,7 +1,9 @@
 import 'package:bmi_calc/app/cubit/core_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../core/enum.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -45,7 +47,7 @@ class SettingsPage extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text('Wybierz język'),
+                          Text(LocaleKeys.infoLanguage.tr()),
                           const SizedBox(
                             height: 10,
                           ),
@@ -58,10 +60,11 @@ class SettingsPage extends StatelessWidget {
                                     ? Colors.blue
                                     : Colors.transparent,
                                 child: InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     context
                                         .read<CoreCubit>()
                                         .changeAndSaveLanguage(Lang.pl);
+                                    await context.setLocale(const Locale('pl'));
                                   },
                                   child: const CircleAvatar(
                                     radius: 20,
@@ -77,10 +80,11 @@ class SettingsPage extends StatelessWidget {
                                     ? Colors.blue
                                     : Colors.transparent,
                                 child: InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     context
                                         .read<CoreCubit>()
                                         .changeAndSaveLanguage(Lang.gb);
+                                    await context.setLocale(const Locale('en'));
                                   },
                                   child: const CircleAvatar(
                                     radius: 20,
@@ -106,7 +110,7 @@ class SettingsPage extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text('Jednostki:'),
+                          Text(LocaleKeys.infoUnit.tr()),
                           DropdownButton(
                               borderRadius: BorderRadius.circular(20),
                               dropdownColor: Color.fromARGB(255, 35, 228, 212),

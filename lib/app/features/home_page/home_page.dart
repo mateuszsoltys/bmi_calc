@@ -1,6 +1,8 @@
 import 'package:bmi_calc/app/features/calc_page/calc_page.dart';
 import 'package:bmi_calc/app/features/history_page/history_page.dart';
+import 'package:bmi_calc/translations/locale_keys.g.dart';
 import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -51,8 +53,8 @@ Widget _previewWidget() {
         ),
         const SizedBox(height: 5),
         Center(
-          child: const Text(
-            'HISTORIA',
+          child: Text(
+            LocaleKeys.history.tr().toUpperCase(),
             style: TextStyle(
               color: Colors.black,
               fontSize: 10,

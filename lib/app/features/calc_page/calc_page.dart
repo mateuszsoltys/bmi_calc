@@ -1,6 +1,8 @@
 import 'package:bmi_calc/app/cubit/core_cubit.dart';
 import 'package:bmi_calc/app/features/settings_page/settings_page.dart';
 import 'package:bmi_calc/models/animated_widgets/anim_widget_settings.dart';
+import 'package:bmi_calc/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,7 +59,7 @@ class CalcPage extends StatelessWidget {
                                 context: context,
                                 builder: (context) => AlertDialog(
                                       title: Text('BMI'),
-                                      content: Text('Teskt o BMI'),
+                                      content: Text(LocaleKeys.txtBMI.tr()),
                                       actions: [
                                         TextButton(
                                             onPressed: () =>
@@ -97,7 +99,9 @@ class CalcPage extends StatelessWidget {
                           SizedBox(
                             width: 80,
                             child: TextField(
+                                textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(10.0),
                                     enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                             width: 3,
@@ -116,7 +120,7 @@ class CalcPage extends StatelessWidget {
                       ),
                     ),
                     HorizontalPicker(
-                        fieldTitle: 'Twoja wysokość',
+                        fieldTitle: LocaleKeys.infoHeight.tr(),
                         textUnit: core.unit == Units.iso ? 'cm' : 'in',
                         unit: core.unit,
                         value: core.height,
@@ -125,7 +129,7 @@ class CalcPage extends StatelessWidget {
                         onChanged: context.read<CoreCubit>().saveHeight),
                     const SizedBox(height: 10),
                     HorizontalPicker(
-                        fieldTitle: 'Twoja waga',
+                        fieldTitle: LocaleKeys.infoWeight.tr(),
                         textUnit: core.unit == Units.iso ? 'kg' : 'lbs',
                         unit: core.age,
                         value: core.weight,

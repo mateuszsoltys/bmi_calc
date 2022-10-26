@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bmi_calc/app/core/enum.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
