@@ -174,7 +174,6 @@ class CalcPage extends StatelessWidget {
                         maxVal: core.maxValWeight,
                         onChanged: context.read<CoreCubit>().saveWeight),
                     const SizedBox(height: 10),
-                    //todo: ResultWidget
                     if (core.bmi == 0.0) ...[
                       Text('infoBmi0'.tr())
                     ] else ...[
@@ -182,14 +181,20 @@ class CalcPage extends StatelessWidget {
                         axes: <RadialAxis>[
                           RadialAxis(
                             minimum: 0,
-                            maximum: core.gender == Gender.man ? 45 : 44,
+                            maximum: core.minRangeWidget?.last + 10 ?? 100,
                             interval: 2,
                             ranges: <GaugeRange>[
-                              GaugeRange(
-                                startValue: 0,
-                                endValue: 25,
-                                color: Colors.green,
-                              )
+                              for (WeightGroup weightGroup
+                                  in WeightGroup.values) ...[
+                                GaugeRange(
+                                  startValue:
+                                      core.minRangeWidget?[weightGroup.index] ??
+                                          0.0,
+                                  endValue:
+                                      core.minRangeWidget?.last + 10 ?? 100,
+                                  color: weightGroup.color,
+                                )
+                              ],
                             ],
                             pointers: <GaugePointer>[
                               NeedlePointer(

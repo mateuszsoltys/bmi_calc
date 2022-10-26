@@ -11,20 +11,20 @@ class CoreCubit extends Cubit<CoreState> {
   final SharedPreferences _preferences;
   CoreCubit(this._preferences)
       : super(CoreState(
-            language:
-                Lang.values.byName(_preferences.getString('language') ?? 'pl'),
-            unit: Units.values.byName(_preferences.getString('unit') ?? 'iso'),
-            gender:
-                Gender.values.byName(_preferences.getString('gender') ?? 'man'),
-            age: _preferences.getInt('age'),
-            height: _preferences.getInt('height') ?? 170,
-            weight: _preferences.getInt('weight') ?? 80,
-            bmi: _preferences.getDouble('bmi') ?? 0.0,
-            minValHeight: _preferences.getInt('minValHeight') ?? 100,
-            maxValHeight: _preferences.getInt('maxValHeight') ?? 200,
-            minValWeight: _preferences.getInt('minValWeight') ?? 30,
-            maxValWeight: _preferences.getInt('maxValWeight') ?? 200,
-            weightGroup: null));
+          language:
+              Lang.values.byName(_preferences.getString('language') ?? 'pl'),
+          unit: Units.values.byName(_preferences.getString('unit') ?? 'iso'),
+          gender:
+              Gender.values.byName(_preferences.getString('gender') ?? 'man'),
+          age: _preferences.getInt('age'),
+          height: _preferences.getInt('height') ?? 170,
+          weight: _preferences.getInt('weight') ?? 80,
+          bmi: _preferences.getDouble('bmi') ?? 0.0,
+          minValHeight: _preferences.getInt('minValHeight') ?? 100,
+          maxValHeight: _preferences.getInt('maxValHeight') ?? 200,
+          minValWeight: _preferences.getInt('minValWeight') ?? 30,
+          maxValWeight: _preferences.getInt('maxValWeight') ?? 200,
+        ));
 
   Future<void> changeUnit(unit) async {
     if (unit == Units.iso) {
@@ -142,7 +142,8 @@ class CoreCubit extends Cubit<CoreState> {
     String? ageCategory = getAgeCategory(state.age);
     if (ageCategory != null) {
       WeightGroup group = getWeightGroup(state.bmi, ageCategory, state.gender);
-      emit(state.copyWith(weightGroup: group));
+      List<double> minRangeList = getMinValues(ageCategory, state.gender);
+      emit(state.copyWith(weightGroup: group, minRangeWidget: minRangeList));
     }
   }
 

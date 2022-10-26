@@ -1,4 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
 enum WeightGroup { underweigt, normal, overweight, adiposity, severeadiposity }
+
+extension WeightGroupColors on WeightGroup {
+  static const Map<WeightGroup, Color> colors = {
+    WeightGroup.underweigt: Colors.blue,
+    WeightGroup.normal: Colors.green,
+    WeightGroup.overweight: Colors.yellow,
+    WeightGroup.adiposity: Colors.red,
+    WeightGroup.severeadiposity: Colors.brown
+  };
+
+  Color get color {
+    final Color? colorValue = colors[this];
+    if (colorValue == null) {
+      return Colors.transparent;
+    }
+    return colorValue;
+  }
+}
 
 enum Lang {
   pl,

@@ -71,3 +71,12 @@ WeightGroup getWeightGroup(double bmi, String ageCategory, Gender gender) {
   }
   return WeightGroup.underweigt;
 }
+
+List<double> getMinValues(String ageCategory, Gender gender) {
+  List<double> listMin = [];
+  for (WeightGroup weightGroup in WeightGroup.values) {
+    listMin.add(
+        bmiTable[ageCategory]['minbmi'][gender][weightGroup.index].toDouble());
+  }
+  return listMin;
+}
