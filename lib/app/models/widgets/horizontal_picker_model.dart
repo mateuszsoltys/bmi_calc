@@ -11,6 +11,7 @@ class HorizontalPicker extends StatelessWidget {
     required this.minVal,
     required this.maxVal,
     required this.onChanged,
+    required this.age,
   }) : super(key: key);
   final fieldTitle;
   final textUnit;
@@ -19,6 +20,7 @@ class HorizontalPicker extends StatelessWidget {
   final value;
   final minVal;
   final maxVal;
+  final age;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +30,10 @@ class HorizontalPicker extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 10),
-          Text(fieldTitle),
+          Text(
+            fieldTitle,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           NumberPicker(
               selectedTextStyle: const TextStyle(
                   color: Color.fromARGB(255, 28, 0, 94), fontSize: 30),
@@ -38,9 +43,15 @@ class HorizontalPicker extends StatelessWidget {
               maxValue: maxVal,
               value: value,
               onChanged: (val) {
-                onChanged.call(val);
+                if (age != null) {
+                  onChanged.call(val);
+                }
               }),
-          Text(textUnit),
+          Text(
+            textUnit,
+            style: const TextStyle(
+                fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
         ],
       ),

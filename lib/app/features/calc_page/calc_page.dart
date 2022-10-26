@@ -157,6 +157,7 @@ class CalcPage extends StatelessWidget {
                       ),
                     ),
                     HorizontalPicker(
+                        age: core.age,
                         fieldTitle: 'infoHeight'.tr(),
                         textUnit: core.unit == Units.iso ? 'cm' : 'in',
                         unit: core.unit,
@@ -166,6 +167,7 @@ class CalcPage extends StatelessWidget {
                         onChanged: context.read<CoreCubit>().saveHeight),
                     const SizedBox(height: 10),
                     HorizontalPicker(
+                        age: core.age,
                         fieldTitle: LocaleKeys.infoWeight.tr(),
                         textUnit: core.unit == Units.iso ? 'kg' : 'lbs',
                         unit: core.age,
@@ -174,14 +176,21 @@ class CalcPage extends StatelessWidget {
                         maxVal: core.maxValWeight,
                         onChanged: context.read<CoreCubit>().saveWeight),
                     const SizedBox(height: 10),
-                    if (core.bmi == 0.0) ...[
-                      Text('infoBmi0'.tr())
+                    if (core.bmi == 0.0 || core.age == null) ...[
+                      const SizedBox(height: 20),
+                      Text('infoBmi0'.tr(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          )),
                     ] else ...[
                       SfRadialGauge(
                         axes: <RadialAxis>[
                           RadialAxis(
                             minimum: 0,
-                            maximum: core.minRangeWidget?.last + 10 ?? 100,
+                            maximum: core.minRangeWidget == null
+                                ? 100
+                                : core.minRangeWidget?.last + 10,
                             interval: 2,
                             ranges: <GaugeRange>[
                               for (WeightGroup weightGroup
@@ -190,8 +199,9 @@ class CalcPage extends StatelessWidget {
                                   startValue:
                                       core.minRangeWidget?[weightGroup.index] ??
                                           0.0,
-                                  endValue:
-                                      core.minRangeWidget?.last + 10 ?? 100,
+                                  endValue: core.minRangeWidget == null
+                                      ? 100
+                                      : core.minRangeWidget?.last + 10,
                                   color: weightGroup.color,
                                 )
                               ],
@@ -204,7 +214,13 @@ class CalcPage extends StatelessWidget {
                             ],
                             annotations: [
                               GaugeAnnotation(
-                                widget: Text(core.weightGroup?.name.tr() ?? ''),
+                                widget: Text(
+                                  core.weightGroup?.name.tr().toUpperCase() ??
+                                      '',
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 positionFactor: 0.6,
                                 angle: 90,
                               ),

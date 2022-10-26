@@ -28,25 +28,31 @@ class SettingsPage extends StatelessWidget {
                         height: 20,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const SizedBox(
-                            width: 20,
-                          ),
+                          IconButton(
+                              iconSize: 50,
+                              constraints: const BoxConstraints(),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              icon: const Icon(
+                                Icons.close_rounded,
+                              )),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           Text(
                             'titleSettings'.tr().toUpperCase(),
                             style: const TextStyle(
                                 fontSize: 40, fontWeight: FontWeight.bold),
                           ),
-                          IconButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              icon: const Icon(Icons.close_rounded))
                         ],
                       ),
                       const SizedBox(
-                        height: 100,
+                        height: 80,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -60,7 +66,11 @@ class SettingsPage extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            Text(LocaleKeys.infoLanguage.tr()),
+                            Text(
+                              LocaleKeys.infoLanguage.tr(),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
@@ -126,11 +136,13 @@ class SettingsPage extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            Text(LocaleKeys.infoUnit.tr()),
+                            Text(LocaleKeys.infoUnit.tr(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
                             DropdownButton(
                                 borderRadius: BorderRadius.circular(20),
                                 dropdownColor:
-                                    Color.fromARGB(255, 35, 228, 212),
+                                    const Color.fromARGB(255, 35, 228, 212),
                                 value: core.unit,
                                 items: Units.values.map((Units unit) {
                                   return DropdownMenuItem<Units>(

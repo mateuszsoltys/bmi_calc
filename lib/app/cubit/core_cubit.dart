@@ -28,14 +28,10 @@ class CoreCubit extends Cubit<CoreState> {
 
   Future<void> changeUnit(unit) async {
     if (unit == Units.iso) {
-      //zmiana min i max
-
       final isoMinH = state.minValHeight! * 2.54;
       final isoMinW = state.minValWeight! * 0.4536;
       final isoMaxH = state.maxValHeight! * 2.54;
       final isoMaxW = state.maxValWeight! * 0.4536;
-
-//zmienić stan główny weight i hight
 
       final isoHeight = state.height * 2.54;
       final isoWeight = state.weight * 0.4536;
@@ -58,13 +54,10 @@ class CoreCubit extends Cubit<CoreState> {
     }
 
     if (unit == Units.imp) {
-      //zmiana min i max
       final impMinH = state.minValHeight! * 0.39370;
       final impMinW = state.minValWeight! * 2.2046;
       final impMaxH = state.maxValHeight! * 0.39370;
       final impMaxW = state.maxValWeight! * 2.2046;
-
-      //zmienić stan główny weight i hight
 
       final impHeight = state.height * 0.39370;
       final impWeight = state.weight * 2.2046;
